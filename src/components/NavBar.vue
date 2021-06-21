@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed bottom-0 left-0 right-0 bg-gray-800">
+  <div class="fixed bottom-0 left-0 right-0 bg-gray-800 z-10">
     <div class="flex flex-col sm:flex-row sm:justify-around">
         <div class="w-full">
             <nav class="my-3 flex w-full justify-center items-center">
@@ -11,7 +11,11 @@
               </div> -->
               <div class="w-1/3 flex justify-center items-center">
                 <router-link to="#nav" class="link-1">
-                  <MenuAlt2Icon class="h-10 w-10 text-blue-500"/>
+                  <MenuAlt2Icon
+                    class="h-10 w-10 text-blue-500 collapse-icon"
+                    :class="{ 'rotate-180': collapsed }"
+                    @click="toggleSidebar"
+                  />
                 </router-link>
               </div>
               <div class="w-1/3 flex justify-center items-center">
@@ -32,9 +36,14 @@
 
 <script>
 import { HeartIcon, MenuAlt2Icon, BookOpenIcon, UserIcon } from '@heroicons/vue/solid'
+import { collapsed, toggleSidebar } from './sidebar/state.js'
+
 
 export default {
   components: { HeartIcon, MenuAlt2Icon, BookOpenIcon, UserIcon },
+  setup() {
+    return { collapsed, toggleSidebar }
+  },
   data() {
     return {
       items: [
