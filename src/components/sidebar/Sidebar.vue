@@ -13,11 +13,12 @@ export default {
 
 <template>
   <div class="sidebar max-h-screen w-full bg-gray-800" :style="{ left: sidebarLeft }">
-    <SidebarLink to="/" icon="fas fa-home">Home</SidebarLink>
-    <SidebarLink to="/dashboard" icon="fas fa-columns">Dashboard</SidebarLink>
-    <SidebarLink to="/analytics" icon="fas fa-chart-bar">Analytics</SidebarLink>
-    <SidebarLink to="/friends" icon="fas fa-users">Friends</SidebarLink>
-    <SidebarLink to="/image" icon="fas fa-image">Images</SidebarLink>
+    <SidebarLink v-on:click="toggleSidebar()" to="/" icon="fas fa-home">Find</SidebarLink>
+    <SidebarLink v-on:click="toggleSidebar()" to="/profile" icon="fas fa-columns">Profile</SidebarLink>
+    <SidebarLink v-on:click="toggleSidebar()" to="/login" icon="fas fa-chart-bar">Login</SidebarLink>
+    <SidebarLink v-on:click="toggleSidebar()" to="/orders" icon="fas fa-users">Orders</SidebarLink>
+    <SidebarLink v-on:click="toggleSidebar()" to="/gallery" icon="fas fa-image">Gallery</SidebarLink>
+    <SidebarLink v-on:click="toggleSidebar()" to="/services" icon="fas fa-image">Services</SidebarLink>
   </div>
 </template>
 
