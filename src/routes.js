@@ -1,55 +1,64 @@
-import Home from './views/Home.vue'
-import About from './views/About.vue'
-import Profile from './views/Profile.vue'
-import SignUp from './views/SignUp.vue'
-import Login from './views/Login.vue'
-import NotFound from './views/NotFound.vue'
+import { createRouter, createWebHistory } from 'vue-router'
+import { getUserState } from './firebase'
 
 /** @type {import('vue-router').RouterOptions['routes']} */
 export const routes = [
   { 
     path: '/',
-    component: Home,
+    name: 'Home',
+    component: import('../views/Home.vue'),
     meta: { title: 'Home' }
   },
   {
     path: '/about',
-    meta: { title: 'About' },
-    component: About,
-    // example of route level code-splitting
-    // this generates a separate chunk (About.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    // component: () => import('./views/About.vue')
+    name: 'About',
+    component: import('../views/About.vue'),
+    meta: { title: 'About' }
   },
   {
     path: '/profile',
-    meta: { title: 'Profile' },
-    component: Profile,
-    // example of route level code-splitting
-    // this generates a separate chunk (About.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    // component: () => import('./views/About.vue')
+    meta: { requiresAuth: true, title: 'Profile' },
+    component: import('../views/Profile.vue'),
+    meta: { title: 'Profile' }
   },
   {
     path: '/signup',
     meta: { title: 'Sign Up' },
-    component: SignUp,
-    // example of route level code-splitting
-    // this generates a separate chunk (About.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    // component: () => import('./views/About.vue')
+    component: import('../views/SignUp.vue'),
+    meta: { title: 'Sign Up' }
   },
   {
     path: '/login',
-    meta: { title: 'Login' },
-    component: Login,
-    // example of route level code-splitting
-    // this generates a separate chunk (About.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    // component: () => import('./views/About.vue')
+    meta: { requiresAuth: true, title: 'Login' },
+    component: import('../views/Login.vue'),
+    meta: { title: 'Login' }
+  },
+  {
+    path: '/orders',
+    meta: { requiresAuth: true, title: 'Orders' },
+    component: import('../views/Orders.vue'),
+    meta: { title: 'Orders' }
   },
   {
     path: '/:path(.*)',
     component: NotFound
   },
 ]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+})
+
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const requiresUnauth = to.matched.some(record => record.meta.requiresUnauth)
+
+  const isAuth = await getUserState()
+
+  if (requiresAuth && !isAuth) next('/login')
+  else if (requiresUnauth && isAuth) next('/')
+  else next()
+})
+
+export default router
