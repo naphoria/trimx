@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
+import router from './routes.js'
 import '@fortawesome/fontawesome-free/js/all'
 import './tailwind.css'
 

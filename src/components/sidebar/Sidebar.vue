@@ -16,6 +16,7 @@ export default {
     <SidebarLink v-on:click="toggleSidebar()" to="/" icon="fas fa-home">Find</SidebarLink>
     <SidebarLink v-on:click="toggleSidebar()" to="/profile" icon="fas fa-columns">Profile</SidebarLink>
     <SidebarLink v-on:click="toggleSidebar()" to="/login" icon="fas fa-chart-bar">Login</SidebarLink>
+    <SidebarLink v-on:click="toggleSidebar()" to="/signup" icon="fas fa-chart-bar">Sign Up</SidebarLink>
     <SidebarLink v-on:click="toggleSidebar()" to="/orders" icon="fas fa-users">Orders</SidebarLink>
     <SidebarLink v-on:click="toggleSidebar()" to="/gallery" icon="fas fa-image">Gallery</SidebarLink>
     <SidebarLink v-on:click="toggleSidebar()" to="/services" icon="fas fa-image">Services</SidebarLink>

@@ -1,4 +1,4 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { getAuth, onAuthStateChanged, RecaptchaVerifier } from 'firebase/auth'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 import { initializeApp } from 'firebase/app'

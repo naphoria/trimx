@@ -6,43 +6,43 @@ export const routes = [
   { 
     path: '/',
     name: 'Home',
-    component: import('../views/Home.vue'),
-    meta: { title: 'Home' }
+    component: () => import('./views/Home.vue'),
+    meta: { requiresAuth: true, title: 'Home' }
   },
   {
     path: '/about',
     name: 'About',
-    component: import('../views/About.vue'),
-    meta: { title: 'About' }
+    component: () => import('./views/About.vue'),
+    meta: { requiresAuth: true, title: 'About' }
   },
   {
     path: '/profile',
-    meta: { requiresAuth: true, title: 'Profile' },
-    component: import('../views/Profile.vue'),
-    meta: { title: 'Profile' }
+    name: 'Profile',
+    component: () => import('./views/Profile.vue'),
+    meta: { requiresAuth: true, title: 'Profile' }
   },
   {
     path: '/signup',
-    meta: { title: 'Sign Up' },
-    component: import('../views/SignUp.vue'),
-    meta: { title: 'Sign Up' }
+    name: 'SignUp',
+    component: () => import('./views/SignUp.vue'),
+    meta: { requiresAuth: false, title: 'Sign Up' }
   },
   {
     path: '/login',
-    meta: { requiresAuth: true, title: 'Login' },
-    component: import('../views/Login.vue'),
-    meta: { title: 'Login' }
+    name: 'Login',
+    component: () => import('./views/Login.vue'),
+    meta: { requiresAuth: false, title: 'Login' },
   },
   {
     path: '/orders',
+    name: 'Orders',
+    component: () => import('./views/Orders.vue'),
     meta: { requiresAuth: true, title: 'Orders' },
-    component: import('../views/Orders.vue'),
-    meta: { title: 'Orders' }
   },
   {
     path: '/:path(.*)',
-    component: NotFound
-  },
+    component: () => import('./views/NotFound.vue'),
+  }
 ]
 
 const router = createRouter({
