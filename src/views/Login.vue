@@ -1,25 +1,35 @@
 <script>
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useRouter } from 'vue-router'
+import { VueTelInput } from 'vue3-tel-input'
+import 'vue3-tel-input/dist/vue3-tel-input.css'
 
 export default {
+  components: {
+    VueTelInput,
+  },
   data() {
     return {
-      showFirst: true,
       phoneActive: true,
       emailActive: false,
+      phone: '',
     };
   },
   methods: {
-    phone: function() {
+    phoneOpen: function() {
       this.phoneActive = true;
       this.emailActive = false;
       // some code to filter users
     },
-    email: function() {
+    emailOpen: function() {
       this.emailActive = true;
       this.phoneActive = false;
       // some code to filter users
+    },
+    onInput(phone, phoneObject, input) {
+      if (phoneObject?.formatted) {
+        this.phone = phoneObject.formatted
+      }
     }
   },
   setup() {
@@ -48,14 +58,14 @@ export default {
       <p class="text-sm">Choose your preffered login method</p>
 
       <div class="my-4 flex text-center">
-          <button class="w-1/2 text-center py-2 px-3 rounded" :class="{ active: phoneActive }" @click="phone()" pressed="active ? 'true' : 'false'">Phone</button
+          <button class="w-1/2 text-center py-2 px-3 rounded" :class="{ active: phoneActive }" @click="phoneOpen()" pressed="active ? 'true' : 'false'">Phone</button
           ><br />
-          <button class="w-1/2 text-center py-2 px-3 rounded" :class="{ active: emailActive }" @click="email()">Email</button>
+          <button class="w-1/2 text-center py-2 px-3 rounded" :class="{ active: emailActive }" @click="emailOpen()">Email</button>
       </div>
-    
+
       <form @submit.prevent="handleSubmit"  class="space-y-5 mt-5">
         <div v-if="phoneActive == true">
-          <input name="number"  type="number" class="w-full h-12 border border-gray-800 rounded px-3" placeholder="Phone +44" />
+          <vue-tel-input :value="phone" @input="onInput"></vue-tel-input>
         </div>
         <div v-else>
           <input name="email"  type="email" class="w-full h-12 border border-gray-800 rounded px-3" placeholder="Email" />

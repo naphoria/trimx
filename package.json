@@ -8,13 +8,16 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "firebase": "^9.0.0-beta.2",
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@vuelidate/core": "^2.0.0-alpha.19",
     "@vuelidate/validators": "^2.0.0-alpha.17",
+    "core-js": "^3.6.5",
+    "firebase": "^9.0.0-beta.2",
     "vue": "^3.0.11",
-    "vue-router": "^4.0.8"
+    "vue-form-generator": "^2.3.4",
+    "vue-router": "^4.0.8",
+    "vue-tel-input": "^5.5.0",
+    "vue3-tel-input": "^1.0.4"
   },
   "devDependencies": {
     "@headlessui/vue": "^1.2.0",
