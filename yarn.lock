@@ -868,11 +868,6 @@ consolidate@^0.16.0:
   dependencies:
     bluebird "^3.7.2"
 
-core-js@^3.14.0:
-  version "3.15.2"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.15.2.tgz#740660d2ff55ef34ce664d7e2455119c5bdd3d61"
-  integrity sha512-tKs41J7NJVuaya8DxIOCnl8QuPHx5/ZVbFo1oKgVl1qHFBBrDctzQGtuLjPpRdNTWmKPH6oEvgN/MUID+l485Q==
-
 core-js@^3.6.5:
   version "3.15.1"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.15.1.tgz#6c08ab88abdf56545045ccf5fd81f47f407e7f1a"
@@ -1840,26 +1835,12 @@ vue-demi@^0.9.1:
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.9.1.tgz#25d6e1ebd4d4010757ff3571e2bf6a1d7bf3de82"
   integrity sha512-7s1lufRD2l369eFWPjgLvhqCRk0XzGWJsQc7K4q+0mZtixyGIvsK1Cg88P4NcaRIEiBuuN4q1NN4SZKFKwQswA==
 
-vue-form-generator@^2.3.4:
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/vue-form-generator/-/vue-form-generator-2.3.4.tgz#aa043ea5163ab5c6cc3cc9ab83e7b70dd5e010a9"
-  integrity sha512-gkGLukX2xyVYASVopRVt/v4ZVFpoH+I1j+yRIkJBOR9++UwZTi8yREWydnKukpp/r90SGX68Yzy4OkQrKZHluQ==
-
 vue-router@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.8.tgz#55d4290a3122444edbc91a3cd2492bb1d0cef494"
   integrity sha512-42mWSQaH7CCBQDspQTHv63f34VEnZC20g9QNK4WJ/zW8SdIUeT6TQ2i/78fjF/pVBUPLBWrGhvB7uDnaz7O/pA==
   dependencies:
     "@vue/devtools-api" "^6.0.0-beta.10"
-
-vue-tel-input@^5.5.0:
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/vue-tel-input/-/vue-tel-input-5.5.0.tgz#c62cf17f00ae2b2c320619de42b0038ed22f2738"
-  integrity sha512-NtO/4KI70jS/6j8zcguO0ZeRLeBc5dRGeTqkGcFwyIOuL7C8xajI9XAMqgY+der6jcuLIAk3Xm0o56ijm5jFxg==
-  dependencies:
-    core-js "^3.14.0"
-    libphonenumber-js "^1.9.6"
-    vue "^2.6.14"
 
 vue3-tel-input@^1.0.4:
   version "1.0.4"
@@ -1870,11 +1851,6 @@ vue3-tel-input@^1.0.4:
     libphonenumber-js "^1.9.6"
     user "^0.0.0"
     vue "^3.0.0-beta.1"
-
-vue@^2.6.14:
-  version "2.6.14"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"
-  integrity sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==
 
 vue@^3.0.0-beta.1:
   version "3.1.4"
