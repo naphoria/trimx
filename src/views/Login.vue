@@ -1,5 +1,5 @@
 <script>
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth'
 import { useRouter } from 'vue-router'
 import { VueTelInput } from 'vue3-tel-input'
 import 'vue3-tel-input/dist/vue3-tel-input.css'
@@ -35,12 +35,37 @@ export default {
   setup() {
     const auth = getAuth()
     const router = useRouter()
+    const appVerifier = window.recaptchaVerifier;
+    const phoneNumber = '+447583459034'
+
+    const VueTelInputOptions = {
+        allCountries: ['GB']
+    }
 
     const handleSubmit = async e => {
+      // if(authType != 'email') {
+
+      // } else {
+        
+      // }
+
       const { email, password } = e.target.elements
       try {
-        await signInWithEmailAndPassword(auth, email.value, password.value)
-        router.push('/')
+        if ((typeof email !== 'undefined')) {
+          await signInWithEmailAndPassword(auth, email.value, password.value)
+          router.push('/')
+        } else {
+          signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+            .then((confirmationResult) => {
+              // SMS sent. Prompt user to type the code from the message, then sign the
+              // user in with confirmationResult.confirm(code).
+              window.confirmationResult = confirmationResult;
+              // ...
+            }).catch((error) => {
+              // Error; SMS not sent
+              // ...
+            });
+        }
       } catch (e) {
         alert(e.message)
       }
@@ -91,6 +116,21 @@ export default {
 </template>
 
 <style scoped>
+
+form .vue-tel-input {
+  border: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border: 1px solid #202a37;
+  border-radius: 0.25rem;
+  height: 3rem;
+}
+form .vue-tel-input input.vti__input {
+  padding-left: 1rem;
+  padding-right: 0.75rem;
+}
+
 .active {
   @apply bg-blue-900 text-white;
 }
@@ -134,12 +174,12 @@ export default {
   border-style: none;
   padding: 0;
 }
-.login form [type="button"]:-moz-focusring,
+/* .login form [type="button"]:-moz-focusring,
 .login form [type="reset"]:-moz-focusring,
 .login form [type="submit"]:-moz-focusring,
 .login form button:-moz-focusring {
   outline: 1px dotted ButtonText;
-}
+} */
 .login form fieldset {
   padding: 0.35em 0.75em 0.625em;
 }
