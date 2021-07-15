@@ -34,53 +34,46 @@ export default {
   },
   setup() {
     const auth = getAuth()
+    auth.languageCode = 'it';
+
     const router = useRouter()
+
     const appVerifier = window.recaptchaVerifier;
+    // const phoneNumber = getPhoneNumberFromUserInput();
     const phoneNumber = '+447583459034'
 
     const VueTelInputOptions = {
         allCountries: ['GB']
     }
 
+    
+
     const handleSubmit = async e => {
-      // if(authType != 'email') {
-
-      // } else {
-        
-      // }
-
       const { email, password } = e.target.elements
       try {
-        if ((typeof email !== 'undefined')) {
-          await signInWithEmailAndPassword(auth, email.value, password.value)
-          router.push('/')
-        } else {
-          signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-            .then((confirmationResult) => {
-              // SMS sent. Prompt user to type the code from the message, then sign the
-              // user in with confirmationResult.confirm(code).
-              window.confirmationResult = confirmationResult;
-              // ...
-            }).catch((error) => {
-              // Error; SMS not sent
-              // ...
-            });
-        }
+        await signInWithEmailAndPassword(auth, email.value, password.value)
+        router.push('/')
+        
+        
       } catch (e) {
         alert(e.message)
       }
     }
 
     return { handleSubmit }
+  
+    
+
+
   }
 }
 </script>
 
 <template>
-  <div class="login bg-white flex flex-col space-y-10 justify-center items-center">
+  <div class="auth bg-white flex flex-col space-y-10 justify-center items-center">
     <div class="bg-white w-96 shadow-xl rounded p-5">
       <h1 class="text-3xl font-medium">Welcome</h1>
-      <p class="text-sm">Choose your preffered login method</p>
+      <p class="text-sm">Choose your preffered log in method.</p>
 
       <div class="my-4 flex text-center">
           <button class="w-1/2 text-center py-2 px-3 rounded" :class="{ active: phoneActive }" @click="phoneOpen()" pressed="active ? 'true' : 'false'">Phone</button
@@ -88,29 +81,40 @@ export default {
           <button class="w-1/2 text-center py-2 px-3 rounded" :class="{ active: emailActive }" @click="emailOpen()">Email</button>
       </div>
 
-      <form @submit.prevent="handleSubmit"  class="space-y-5 mt-5">
-        <div v-if="phoneActive == true">
+      <!-- Phone Input : Default -->
+      <form v-if="phoneActive == true" @submit.prevent="handleSubmit" class="space-y-5 mt-5">
+        <div>
           <vue-tel-input :value="phone" @input="onInput"></vue-tel-input>
         </div>
-        <div v-else>
+        <div class="w-full flex items-center border border-gray-800 rounded px-3">
+          <input name="password" type="password" class="border-0 p-0 w-4/5 h-12" placeholder="Password" />
+          <span class="text-blue-700 hover:bg-blue-400 rounded-md px-3 cursor-pointer">Show</span>
+        </div>
+
+        <button class="text-center w-full bg-blue-900 rounded-md text-white py-3 font-medium">Log In</button>
+      </form>
+
+      <!-- Email Input -->
+      <form v-else @submit.prevent="handleSubmit" class="space-y-5 mt-5">
+        <div>
           <input name="email"  type="email" class="w-full h-12 border border-gray-800 rounded px-3" placeholder="Email" />
         </div>
         <div class="w-full flex items-center border border-gray-800 rounded px-3">
           <input name="password" type="password" class="border-0 p-0 w-4/5 h-12" placeholder="Password" />
-          <span class="text-blue-700 hover:bg-blue-400 rounded-md px-3">Show</span>
+          <span class="text-blue-700 hover:bg-blue-400 rounded-md px-3 cursor-pointer">Show</span>
         </div>
 
-        <div class="flex">
-          <div class="w-1/2">
-            <a href="/forgot" class="font-medium text-blue-900 hover:bg-blue-300 rounded-md p-2">Forgot Password ?</a>
-          </div>
-          <div class="w-1/2">
-            <a href="/signup" class="font-medium text-blue-900 hover:bg-blue-300 rounded-md p-2">Sign Up</a>
-          </div>
-        </div>
-
-        <button class="text-center w-full bg-blue-900 rounded-md text-white py-3 font-medium">Login</button>
+        <button class="text-center w-full bg-blue-900 rounded-md text-white py-3 font-medium">Log In</button>
       </form>
+
+      <div class="flex mt-4">
+        <div class="w-1/2">
+          <a href="/forgot" class="font-medium text-blue-900 hover:bg-blue-300 rounded-md p-2">Forgot Password ?</a>
+        </div>
+        <div class="w-1/2">
+          <a href="/signup" class="font-medium text-blue-900 hover:bg-blue-300 rounded-md p-2">Sign Up</a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -134,7 +138,7 @@ form .vue-tel-input input.vti__input {
 .active {
   @apply bg-blue-900 text-white;
 }
-.login form .select-dropdown input[type="radio"]:checked,
+.auth form .select-dropdown input[type="radio"]:checked,
 .select-dropdown input[type="radio"]:checked + label {
   display: inline-block;
 }
@@ -143,47 +147,47 @@ form .vue-tel-input input.vti__input {
       
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
-.login form button,
-.login form input,
-.login form optgroup,
-.login form select,
-.login form textarea {
+.auth form button,
+.auth form input,
+.auth form optgroup,
+.auth form select,
+.auth form textarea {
   font-family: inherit;
   font-size: 100%;
   line-height: 1.15;
   margin: 0;
 }
-.login form button,
-.login form input {
+.auth form button,
+.auth form input {
   overflow: visible;
 }
-.login form button,
-.login form select {
+.auth form button,
+.auth form select {
   text-transform: none;
 }
-.login form [type="button"],
-.login form [type="reset"],
-.login form [type="submit"],
-.login form button {
+.auth form [type="button"],
+.auth form [type="reset"],
+.auth form [type="submit"],
+.auth form button {
   -webkit-appearance: button;
 }
-.login form [type="button"]::-moz-focus-inner,
-.login form [type="reset"]::-moz-focus-inner,
-.login form [type="submit"]::-moz-focus-inner,
-.login form button::-moz-focus-inner {
+.auth form [type="button"]::-moz-focus-inner,
+.auth form [type="reset"]::-moz-focus-inner,
+.auth form [type="submit"]::-moz-focus-inner,
+.auth form button::-moz-focus-inner {
   border-style: none;
   padding: 0;
 }
-/* .login form [type="button"]:-moz-focusring,
-.login form [type="reset"]:-moz-focusring,
-.login form [type="submit"]:-moz-focusring,
-.login form button:-moz-focusring {
+/* .auth form [type="button"]:-moz-focusring,
+.auth form [type="reset"]:-moz-focusring,
+.auth form [type="submit"]:-moz-focusring,
+.auth form button:-moz-focusring {
   outline: 1px dotted ButtonText;
 } */
-.login form fieldset {
+.auth form fieldset {
   padding: 0.35em 0.75em 0.625em;
 }
-.login form legend {
+.auth form legend {
   box-sizing: border-box;
   color: inherit;
   display: table;
@@ -191,40 +195,40 @@ form .vue-tel-input input.vti__input {
   padding: 0;
   white-space: normal;
 }
-.login form progress {
+.auth form progress {
   vertical-align: baseline;
 }
-.login form textarea {
+.auth form textarea {
   overflow: auto;
 }
-.login form [type="checkbox"],
-.login form [type="radio"] {
+.auth form [type="checkbox"],
+.auth form [type="radio"] {
   box-sizing: border-box;
   padding: 0;
 }
-.login form [type="number"]::-webkit-inner-spin-button,
-.login form [type="number"]::-webkit-outer-spin-button {
+.auth form [type="number"]::-webkit-inner-spin-button,
+.auth form [type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
-.login form [type="search"] {
+.auth form [type="search"] {
   -webkit-appearance: textfield;
   outline-offset: -2px;
 }
-.login form [type="search"]::-webkit-search-decoration {
+.auth form [type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
-.login form ::-webkit-file-upload-button {
+.auth form ::-webkit-file-upload-button {
   -webkit-appearance: button;
   font: inherit;
 }
-.login form details {
+.auth form details {
   display: block;
 }
-.login form summary {
+.auth form summary {
   display: list-item;
 }
-.login form [hidden],
-.login form template {
+.auth form [hidden],
+.auth form template {
   display: none;
 }
 
