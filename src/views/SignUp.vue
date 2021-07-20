@@ -35,20 +35,22 @@ export default {
       }
     },
     onSignInSubmit() {
-      console.log(this.phone);
+      // console.log(this.phone);
       // if (isPhoneNumberValid()) {
         window.signingIn = true;
         // updateSignInButtonUI();
         const auth = getAuth();
         var phoneNumber = this.getPhoneNumberFromUserInput();
         var appVerifier = window.recaptchaVerifier;
+        // const router = useRouter()
         signInWithPhoneNumber(auth, phoneNumber, appVerifier)
             .then(function (confirmationResult) {
               // SMS sent. Prompt user to type the code from the message, then sign the
               // user in with confirmationResult.confirm(code).
               window.confirmationResult = confirmationResult;
               window.signingIn = false;
-              console.log('done');
+              // console.log('done');
+              // router.push('/')
               // updateSignInButtonUI();
               // updateVerificationCodeFormUI();
               // updateVerifyCodeButtonUI();
@@ -61,24 +63,11 @@ export default {
               window.signingIn = false;
 
               grecaptcha.reset(window.recaptchaWidgetId);
+              // console.log(window.recaptchaWidgetId);
 
               // updateSignInFormUI();
               // updateSignInButtonUI();
             });
-
-        // const auth = getAuth();
-        // signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-        //   .then((confirmationResult) => {
-        //     // SMS sent. Prompt user to type the code from the message, then sign the
-        //     // user in with confirmationResult.confirm(code).
-        //     window.confirmationResult = confirmationResult;
-        //     // ...
-        //   }).catch((error) => {
-        //     // Error; SMS not sent
-        //     // ...
-        //   });
-
-      // }
     },
     onVerifyCodeSubmit(e) {
       e.preventDefault();
@@ -153,6 +142,7 @@ export default {
         onSignInSubmit();
       }
     }, auth);
+
   }
 }
 </script>
@@ -161,13 +151,13 @@ export default {
   <div class="auth bg-white flex flex-col space-y-10 justify-center items-center">
     <div class="bg-white w-96 shadow-xl rounded p-5">
       <h1 class="text-3xl font-medium">Sign Up</h1>
-      <p class="text-sm">Choose your preffered method of registration.</p>
+      <!-- <p class="text-sm">Choose your preffered method of registration.</p> -->
 
-      <div class="my-4 flex text-center">
+      <!-- <div class="my-4 flex text-center">
           <button class="w-1/2 text-center py-2 px-3 rounded" :class="{ active: phoneActive }" @click="phoneOpen()" pressed="active ? 'true' : 'false'">Phone</button
           ><br />
           <button class="w-1/2 text-center py-2 px-3 rounded" :class="{ active: emailActive }" @click="emailOpen()">Email</button>
-      </div>
+      </div> -->
 
       <!-- Phone Input : Default -->
       <div v-if="phoneActive == true" class="mt-5">
